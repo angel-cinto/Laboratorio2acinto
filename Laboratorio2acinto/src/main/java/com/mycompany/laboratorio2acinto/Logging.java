@@ -8,15 +8,18 @@ package com.mycompany.laboratorio2acinto;
  *
  * @author umg
  */
-public class Login extends javax.swing.JFrame {
+public class Logging extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Logging.class.getName());
 
     /**
      * Creates new form Login
      */
-    public Login() {
+    public Logging() {
         initComponents();
+        // ESTA ES LA LÍNEA MÁGICA:
+    // Le dice a la ventana que el botón 'jButton_Ingresar' es el principal
+    this.getRootPane().setDefaultButton(jButton_Ingresar);
     }
 
     /**
@@ -30,10 +33,10 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jText_User = new javax.swing.JTextField();
+        jText_Password = new javax.swing.JPasswordField();
+        jButton_Ingresar = new javax.swing.JButton();
+        jButton_Cancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,11 +46,19 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Contraseña:");
 
-        jPasswordField1.setText("jPasswordField1");
+        jButton_Ingresar.setText("Ingresar");
+        jButton_Ingresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_IngresarActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Ingresar");
-
-        jButton2.setText("Cancelar");
+        jButton_Cancelar.setText("Cancelar");
+        jButton_Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_CancelarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Artifakt Element Thin", 0, 18)); // NOI18N
         jLabel3.setText("LOGIN");
@@ -64,14 +75,14 @@ public class Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(jButton_Ingresar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
+                        .addComponent(jButton_Cancelar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jText_User)
+                        .addComponent(jText_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,20 +92,53 @@ public class Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jText_User, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jText_Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton_Ingresar)
+                    .addComponent(jButton_Cancelar))
                 .addContainerGap(94, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelarActionPerformed
+        // Cerramos todo el sistema
+    System.exit(0);// TODO add your handling code here:
+    }//GEN-LAST:event_jButton_CancelarActionPerformed
+
+    private void jButton_IngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_IngresarActionPerformed
+        // 1. Extraemos el texto de tus componentes
+    String usuario = jText_User.getText();
+    
+    // Para contraseñas, por seguridad se usa getPassword() 
+    // y lo convertimos a String para comparar
+    String password = new String(jText_Password.getPassword());
+
+    // 2. Verificamos los requerimientos (admin / 123)
+    if (usuario.equals("acinto") && password.equals("Umariano24")) {
+        
+        // 3. SI ES CORRECTO: Mensaje de bienvenida y pasar al menú
+        javax.swing.JOptionPane.showMessageDialog(this, "¡Bienvenido al sistema!");
+        
+        Menu principal = new Menu(); // Creamos la ventana del menú
+        principal.setVisible(true);   // La mostramos
+        this.dispose();              // Cerramos el Login
+        
+    } else {
+        // 4. SI ES INCORRECTO: Mensaje de error
+        javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña inválidos", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        
+        // Opcional: Limpiar el campo de password para reintentar
+        jText_Password.setText("");
+        jText_User.requestFocus(); // Pone el cursor de nuevo en el usuario
+    }// TODO add your handling code here:
+    }//GEN-LAST:event_jButton_IngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,16 +162,16 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new Logging().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton_Cancelar;
+    private javax.swing.JButton jButton_Ingresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField jText_Password;
+    private javax.swing.JTextField jText_User;
     // End of variables declaration//GEN-END:variables
 }

@@ -30,11 +30,12 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu_Opciones = new javax.swing.JMenu();
+        jMenu_Manto_User = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenu_Reset_Pass = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenu_Salir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Principal");
@@ -50,19 +51,25 @@ public class Menu extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Gestion");
+        jMenu_Opciones.setText("Gestion");
 
-        jMenuItem1.setText("Mantenimiento de Usuarios");
-        jMenu1.add(jMenuItem1);
-        jMenu1.add(jSeparator1);
+        jMenu_Manto_User.setText("Mantenimiento de Usuarios");
+        jMenu_Opciones.add(jMenu_Manto_User);
+        jMenu_Opciones.add(jSeparator1);
 
-        jMenuItem3.setText("Reincio de Clave");
-        jMenu1.add(jMenuItem3);
+        jMenu_Reset_Pass.setText("Reincio de Clave");
+        jMenu_Opciones.add(jMenu_Reset_Pass);
+        jMenu_Opciones.add(jSeparator2);
 
-        jMenuBar1.add(jMenu1);
+        jMenu_Salir.setText("Salir");
+        jMenu_Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu_SalirActionPerformed(evt);
+            }
+        });
+        jMenu_Opciones.add(jMenu_Salir);
 
-        jMenu2.setText("Exit");
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenu_Opciones);
 
         setJMenuBar(jMenuBar1);
 
@@ -85,6 +92,11 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenu_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu_SalirActionPerformed
+        // Salida limpia del sistema
+    System.exit(0);// TODO add your handling code here:
+    }//GEN-LAST:event_jMenu_SalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,12 +124,13 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenu_Manto_User;
+    private javax.swing.JMenu jMenu_Opciones;
+    private javax.swing.JMenuItem jMenu_Reset_Pass;
+    private javax.swing.JMenuItem jMenu_Salir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     // End of variables declaration//GEN-END:variables
 }
