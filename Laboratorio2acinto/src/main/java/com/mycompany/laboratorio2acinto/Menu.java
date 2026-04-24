@@ -17,6 +17,8 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        // Maximiza la ventana en ambos sentidos (Horizontal y Vertical)
+    this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -54,10 +56,20 @@ public class Menu extends javax.swing.JFrame {
         jMenu_Opciones.setText("Gestion");
 
         jMenu_Manto_User.setText("Mantenimiento de Usuarios");
+        jMenu_Manto_User.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu_Manto_UserActionPerformed(evt);
+            }
+        });
         jMenu_Opciones.add(jMenu_Manto_User);
         jMenu_Opciones.add(jSeparator1);
 
         jMenu_Reset_Pass.setText("Reincio de Clave");
+        jMenu_Reset_Pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu_Reset_PassActionPerformed(evt);
+            }
+        });
         jMenu_Opciones.add(jMenu_Reset_Pass);
         jMenu_Opciones.add(jSeparator2);
 
@@ -94,9 +106,50 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenu_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu_SalirActionPerformed
-        // Salida limpia del sistema
-    System.exit(0);// TODO add your handling code here:
+        // 1. Preguntar al usuario si realmente desea cerrar sesión
+    int respuesta = javax.swing.JOptionPane.showConfirmDialog(this, 
+            "¿Está seguro que desea cerrar sesión?", 
+            "Cerrar Sesión", 
+            javax.swing.JOptionPane.YES_NO_OPTION,
+            javax.swing.JOptionPane.QUESTION_MESSAGE);
+            
+    if (respuesta == javax.swing.JOptionPane.YES_OPTION) {
+        // 2. Creamos la instancia de la pantalla de Login
+        Logging pantallaLogin = new Logging();
+        
+        // 3. La hacemos visible
+        pantallaLogin.setVisible(true);
+        pantallaLogin.setLocationRelativeTo(null); // Centrarla
+        
+        // 4. Cerramos (destruimos) la ventana de Menú actual
+        this.dispose();
+    }
     }//GEN-LAST:event_jMenu_SalirActionPerformed
+
+    private void jMenu_Manto_UserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu_Manto_UserActionPerformed
+        // 1. Creamos el objeto de la ventana. 
+    // 'this' significa que este Menú es el dueño del diálogo.
+    // 'true' significa que es modal (bloquea el menú hasta cerrar).
+    MantenimientoUsuarios ventanaManto = new MantenimientoUsuarios(this, true);
+    
+    // 2. Centrar la ventanita respecto al menú
+    ventanaManto.setLocationRelativeTo(this);
+    
+    // 3. Hacerla visible
+    ventanaManto.setVisible(true);
+    }//GEN-LAST:event_jMenu_Manto_UserActionPerformed
+
+    private void jMenu_Reset_PassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu_Reset_PassActionPerformed
+        // Creamos el objeto de la ventana
+    // 'this' es el JFrame (Menu), 'true' la hace modal
+    ReinicioClave ventana = new ReinicioClave(this, true);
+    
+    // La centramos respecto al menú
+    ventana.setLocationRelativeTo(this);
+    
+    // La hacemos aparecer
+    ventana.setVisible(true);
+    }//GEN-LAST:event_jMenu_Reset_PassActionPerformed
 
     /**
      * @param args the command line arguments

@@ -10,6 +10,8 @@ package com.mycompany.laboratorio2acinto;
  */
 public class Logging extends javax.swing.JFrame {
     
+    // 1. Variable global (afuera del método del botón)
+    int intentos = 0;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Logging.class.getName());
 
     /**
@@ -17,6 +19,9 @@ public class Logging extends javax.swing.JFrame {
      */
     public Logging() {
         initComponents();
+    
+    // ESTA ES LA LÍNEA MÁGICA
+    this.setLocationRelativeTo(null);
         // ESTA ES LA LÍNEA MÁGICA:
     // Le dice a la ventana que el botón 'jButton_Ingresar' es el principal
     this.getRootPane().setDefaultButton(jButton_Ingresar);
@@ -47,6 +52,7 @@ public class Logging extends javax.swing.JFrame {
         jLabel2.setText("Contraseña:");
 
         jButton_Ingresar.setText("Ingresar");
+        jButton_Ingresar.setToolTipText("Ingresar al sistema!");
         jButton_Ingresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_IngresarActionPerformed(evt);
@@ -54,6 +60,7 @@ public class Logging extends javax.swing.JFrame {
         });
 
         jButton_Cancelar.setText("Cancelar");
+        jButton_Cancelar.setToolTipText("Cancelar");
         jButton_Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_CancelarActionPerformed(evt);
@@ -127,12 +134,25 @@ public class Logging extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "¡Bienvenido al sistema!");
         
         Menu principal = new Menu(); // Creamos la ventana del menú
+        // 3. Centrar la ventana del menú en la pantalla
+        principal.setLocationRelativeTo(null);
         principal.setVisible(true);   // La mostramos
         this.dispose();              // Cerramos el Login
         
     } else {
         // 4. SI ES INCORRECTO: Mensaje de error
-        javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña inválidos", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        //javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña inválidos", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        // 2. Si falla, sumamos un intento
+        intentos++; 
+        
+        if (intentos >= 3) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Has superado los 3 intentos. El sistema se cerrará.");
+            System.exit(0); // Bloqueo de seguridad
+        } else {
+            int restantes = 3 - intentos;
+            javax.swing.JOptionPane.showMessageDialog(this, "Usuario o Contraseña Incorrecto. Te quedan " + restantes + " intentos.");
+            jText_Password.setText("");
+        }
         
         // Opcional: Limpiar el campo de password para reintentar
         jText_Password.setText("");
